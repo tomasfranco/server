@@ -24,5 +24,39 @@ async function main() {
       }
    }
  })
+ 
+await prisma.game.create({
+  data: {
+    date: '2022-11-04T14:06:22.445Z',
+    firstTeamCountryCode: 'DE',
+    secondTeamCountryCode: 'BR'
+  }
+})
+
+await prisma.game.create({
+  data: {
+    date: '2022-11-06T12:06:22.445Z',
+    firstTeamCountryCode: 'BR',
+    secondTeamCountryCode: 'AR',
+
+    guesses: {
+      create: {
+        firstTeamPoints: 2,
+        secondTeamPoints: 1,
+
+        participant: {
+          connect: {
+            userId_poolId: {
+              userId: user.id,
+              poolId: pool.id,
+            }
+          }
+        }
+      }
+    }
+  },
+})
 }
+
+
 main()
